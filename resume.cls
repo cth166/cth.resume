@@ -48,7 +48,7 @@
 \RequirePackage[super]{nth}
 
 \titleformat{\section}         % Customise the \section command 
-  {\Large\scshape\raggedright} % Make the \section headers large (\Large),
+  {\large\scshape\raggedright} % Make the \section headers large (\Large),
                                % small capitals (\scshape) and left aligned (\raggedright)
   {}{0em}                      % Can be used to give a prefix to all sections, like 'Section ...'
   {}                           % Can be used to insert code before the heading
@@ -56,7 +56,7 @@
 \titlespacing*{\section}{0cm}{*1.8}{*1.8}
 
 \titleformat{\subsection}
-  {\large\raggedright}
+  {\raggedright}
   {}{0em}
   {}
 \titlespacing*{\subsection}{0cm}{*1.8}{*0.6}
@@ -65,14 +65,14 @@
   \section[#1]{#1 \hfill #2}%
 }
 \newcommand{\datedsubsection}[2]{%
-  \subsection[#1]{#1 \hfill #2}%
+  \subsection[#1]{\small #1 \hfill \small\textit{#2}}%
 }
 \newcommand{\datedline}[2]{%
   {\par #1 \hfill #2 \par}%
 }
 
 \newcommand{\name}[1]{
-  \centerline{\Huge\scshape{#1}}
+  \centerline{\LARGE\scshape{#1}}
   \vspace{1.25ex}
 }
 
@@ -104,6 +104,11 @@
   \ifthenelse{\isempty{#1}}%
     {\href{#2}{#2}}
     {\href{#2}{#1}}}
+% usage: \repo[repo-name]{<url>}
+\newcommand{\repo}[2][]{\ 
+  \ifthenelse{\isempty{#1}}%
+    {\href{#2}{#2}}
+    {\href{#2}{#1}}}
 % defines one's homepage
 % usage: \homepage{<homepage>}
 \newcommand{\homepage}[2][]{\faLink\ 
@@ -112,7 +117,7 @@
     {\href{#2}{#1}}}
 
 \newcommand{\basicInfo}[1]{
-  \centerline{\sffamily\large{#1}}
+  \centerline{\sffamily{#1}}
   \vspace{1.5ex}
 }
 
@@ -120,3 +125,13 @@
   {\par \textit{#1} ~ #2 \par}
   \vspace{0.85ex}
 }
+
+% 定义命令
+\newcommand{\ul}[1]{%
+  \begin{itemize}[parsep=0.5ex]
+    \footnotesize
+    #1
+  \end{itemize}%
+}
+
+\newcommand{\li}{\item}

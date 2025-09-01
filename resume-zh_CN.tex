@@ -1,0 +1,85 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+% !Mode:: "TeX:UTF-8"
+
+\documentclass{resume}
+\usepackage{zh_CN-Adobefonts_external} % Simplified Chinese Support using external fonts (./fonts/zh_CN-Adobe/)
+% \usepackage{NotoSansSC_external}
+% \usepackage{NotoSerifCJKsc_external}
+% \usepackage{zh_CN-Adobefonts_internal} % Simplified Chinese Support using system fonts
+\usepackage{linespacing_fix} % disable extra space before next section
+\usepackage{cite}
+
+\begin{document}
+\pagenumbering{gobble} % suppress displaying page number
+
+\name{陈天皓}
+
+\basicInfo{
+  \faBirthdayCake  1999-09-14 \textperiodcentered\
+  \email{905546907@qq.com} \textperiodcentered\ 
+  \phone{15845116310} \textperiodcentered\ 
+  \github[cth166]{https://github.com/cth166}}
+ 
+\section{教育背景}
+\datedsubsection{\textbf{哈尔滨理工大学}（通信工程专业）}{2017-09 至 2021-07}
+\ul{
+  \li \textbf{CET6（450）}
+}
+
+\section{个人技能}
+\ul{
+  \li 基于AST，开发\repo[vue3-helper]{https://github.com/cth166/vue3-helper}(VS Code 插件)，实现 Vue 2 OptionsAPI 到 Vue 3  setup 的语法转换。 
+  \li 了解 rollup、eslint 插件开发、发布流程。发布\repo[rollup-simple-ssh]{https://github.com/cth166/rollup-simple-ssh}插件来简化向远程服务器传输打包后文件夹的操作。
+  \li 发布\repo[cth-cli]{https://github.com/cth166/cth-cli}命令行工具，是简易的后端开发脚手架，通过命令生成 orm 模型文件和初始路由文件。(koa、sequelize)
+  \li 熟悉 Vue 响应式模块源码，了解编译模块流程。(学习\repo[mini-vue]{https://github.com/cuixiaorui/mini-vue})
+  \li Blender 简单建模，结合 three.js 做一些交互。
+}
+
+\section{工作经历}
+\datedsubsection{\textbf{\lbrack 上海科之锐人才咨询有限公司(华为OD)\rbrack}}{2024-04 至 2025-08}
+\small\textbf{车辆预约ERP系统(PC端 + 移动端)}
+\ul{
+  \li 平台页面存在大量表单和表格，根据业务特点，封装表单子组件。在element-plus和vant的各种表单组件基础上，props增加mode表示详情和编辑两种模式，对应展示和修改两种状态。在涉及流程提交、流程详情、表格行编辑功能的新业务和重构中广泛使用。pc端和移动端的相同业务，可复用相同的表单配置相关逻辑，统一开发思路，提高开发效率。
+  \li 使用Broadcast Channel API，浏览器多个tab页切换角色时，如果旧tab页的角色与最新角色不符时，切换到旧tab后，禁止用户操作，弹窗提示刷新界面，从后端获取最新角色的权限，重新路由初始化。
+  \li 主导项目vue2升级vue3，升级工具库依赖，webpack换vite。大量重写老模块，解决技术债，减少代码超过八千行。最终发版少量一般问题，无严重问题。
+  \li 引入单元测试vitest。为复杂，易错的业务场景，添加单元测试。保证重构的准确性，编写代码“活文档”。
+  \li 在小组内和部门前端工作组中多次分享拓展编程思维的议题，如ast的应用、vscode插件编写、vitest实践、Server-sent events流式渲染等。相关demo托管在github上。
+}
+
+\datedsubsection{\textbf{\lbrack 哈尔滨工程北米科技有限公司\rbrack}}{2022-09 至 2023-11}
+\small\textbf{磨米产线设备控制系统(前端 Vue3)}
+\ul{
+  \li IndexedDB 使用 Promise 二次封装，参考 sequelizeAPI 封装 object store 增删改查操作，使用异步生成器结合提供的 cursorAPI完成表的遍历。主要用来同步后端数据库。
+  \li 按前后端约定的规则解析后端配置库中的各个表，后端接口会返回表结构和表数据，根据表结构在IndexedDB中创建表，把结构复杂的表数据json抽象成类对象，前端按规则解析后缓存。缓存后的数据结构用于前端数据展示，寻找关联关系，格式化函数，数据异常告警函数等功能。
+  \li Blender 中建模产线设备，添加贴图，规范网格命名，导出 glb 文件。
+  \li 使用 three.js 加载模型，轮询请求接口拿到各个设备的实时状态(运行、待机、告警)，修改指示灯的材质和层级，添加bloom效果器使灯泛光更真实。根据每个设备模型的包围盒中点坐标，计算它对应的数据面板的 css 坐标，平移旋转时数据面板一直跟踪该设备。射线检测用户点击的设备，弹出提示框控制单个设备启停。
+  \li 使用虚拟列表展示图片列表，减少 dom 渲染数量。使用 Resize Observer API 增加响应式布局的能力。
+}
+\small\textbf{磨米产线设备控制系统(后端 Node)}
+\ul{
+  \li 使用 sequelize 简化数据库操作，预留使用不同 DBMS 时逻辑统一性，目前为 sqlite。
+  \li config库保存静态关系，states库保存设备状态。根据config库中的关系，动态生成states库中的表（表名和结构都依赖于config库中的配置）。使用sequelize创建的数据库实例，在koa-router中动态添加states库的增删改查等操作。
+  \li 使用net模块与下位的工控机通信，记录每个工控机的连接状态，可以向工控机下发json来修改现场的设备状态。
+  \li 使用 koa-body 中间件保存大米、砂带等照片。利用 jimp 处理原始图片，创建压缩图。在用户请求大图时（大约 25MB），生成一张压缩后的临时图片返回给前端，最终删除临时图片。
+  \li 利用 vitest 单元测试一些纯函数，例如图片改名、转换请求 query 参数为 sequelize 查询配置项等。
+}
+\small\textbf{数据大屏(Vue3)}
+\ul{
+  \li 使用 UnoCss、css 变量和 VueUse 实现网站的明暗主题切换。
+  \li 自定义一些hooks，如：echarts跟随主题变色并且组件卸载时自动释放 echarts 实例，每个图表中都可以复用。useScaleRatio根据视口的宽高缩放body标签，计算基于哪条边进行缩放成目标比例。
+  \li 配合后端接入第三方服务，使用好望云服务获取工厂监控摄像头视频流，前端 flv.js 实时展示监控画面。
+  \li 利用 Service Worker 在用户刚刚访问页面时（登录页或首页），立即请求生产线的 glb 模型（每个 6MB 左右），缓存到内存中。等用户切换到产线页时从缓存中拿到 glb 模型更快加载，提升用户体验。解决了由于路由懒加载，资源分包，导致只有切换到产线页面才会去请求 glb 文件，等待时间较长的问题。
+}
+
+\datedsubsection{\textbf{\lbrack 北京天能继保哈尔滨研发中心\rbrack}}{2021-07 至 2022-06}
+\ul{
+  \li 基于 nw.js 开发桌面端配网工具。主要功能为收集用户输入信息，生成 xml 文件，也可以导入 xml 文件填入对应输入框。根据用户选择框操作，动态生成页面信息。通过 jQuery 向子站更新接口发送请求。
+  \li 编写电力系统后台管理页面，使用 bootstrap 布局和 jQuery 组件库配合完成功能。项目前后端不分离，在 Eclipse 编写前端代码，svn 管理代码版本。
+}
+
+%% Reference
+%\newpage
+%\bibliographystyle{IEEETran}
+%\bibliography{mycite}
+\end{document}\
